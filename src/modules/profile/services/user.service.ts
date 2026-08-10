@@ -3,10 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ResourceAlreadyExistsException } from 'src/common/exceptions/resource-already-exists.exception';
 import { ResourceNotFoundException } from 'src/common/exceptions/resource-not-found.exception';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from '../../dto/create-user.dto';
-import { UpdateUserDto } from '../../dto/update-user.dto';
-import { UserProfileResponse } from '../../dto/user-profile.response';
-import { User } from '../../entities/user.entity';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import { UserProfileResponse } from '../dto/user-profile.response';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UserService {

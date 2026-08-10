@@ -2,10 +2,10 @@ import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { CurrentUser } from 'src/common/security/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/common/security/firebase-auth.guard';
 import type { FirebaseUserPrincipal } from 'src/common/security/firebase-user-principal';
-import { CreateUserDto } from '../../dto/create-user.dto';
-import { UpdateUserDto } from '../../dto/update-user.dto';
-import { UserProfileResponse } from '../../dto/user-profile.response';
-import { UserService } from '../../services/user/user.service';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import { UserProfileResponse } from '../dto/user-profile.response';
+import { UserService } from '../services/user.service';
 
 @Controller('users')
 @UseGuards(FirebaseAuthGuard)

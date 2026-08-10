@@ -1,5 +1,6 @@
 import {
   IsEnum,
+  IsNotEmpty,
   IsOptional,
   IsString,
   Matches,
@@ -11,6 +12,7 @@ import { UserGender } from '../entities/user.entity';
 export class UpdateUserDto {
   @IsString()
   @MaxLength(150)
+  @IsNotEmpty({ message: 'Full name must not be blank' })
   fullName!: string;
 
   @IsOptional()
