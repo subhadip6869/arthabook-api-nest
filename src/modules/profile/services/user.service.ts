@@ -81,4 +81,19 @@ export class UserService {
 
     return new UserProfileResponse(user);
   }
+
+  async deleteProfile(firebaseUid: string): Promise<string> {
+    const user = await this.userRepository.findOne({
+      where: { userId: firebaseUid },
+    });
+
+    if (!user) {
+      throw new ResourceNotFoundException('User profile not found');
+    }
+
+    const userId = user.userId;
+
+    await this.userRepository.delete(userId);
+    return userId;
+  }
 }

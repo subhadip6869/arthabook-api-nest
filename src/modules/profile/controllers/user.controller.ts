@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { CurrentUser } from 'src/common/security/current-user.decorator';
 import { FirebaseAuthGuard } from 'src/common/security/firebase-auth.guard';
 import type { FirebaseUserPrincipal } from 'src/common/security/firebase-user-principal';
@@ -37,5 +45,12 @@ export class UserController {
     @CurrentUser() principal: FirebaseUserPrincipal,
   ): Promise<UserProfileResponse> {
     return this.userService.getProfile(principal.uid);
+  }
+
+  @Delete()
+  async deleteProfile(
+    @CurrentUser() principal: FirebaseUserPrincipal,
+  ): Promise<string> {
+    return this.userService.deleteProfile(principal.uid);
   }
 }
