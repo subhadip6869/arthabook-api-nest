@@ -7,9 +7,10 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { CurrentUser } from 'src/common/security/current-user.decorator';
-import { FirebaseAuthGuard } from 'src/common/security/firebase-auth.guard';
-import type { FirebaseUserPrincipal } from 'src/common/security/firebase-user-principal';
+
+import { CurrentUser } from '../../../common/security/current-user.decorator';
+import { FirebaseAuthGuard } from '../../../common/security/firebase-auth.guard';
+import { FirebaseUserPrincipal } from '../../../common/security/firebase-user-principal';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserProfileResponse } from '../dto/user-profile.response';

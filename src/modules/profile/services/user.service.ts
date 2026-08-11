@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ResourceAlreadyExistsException } from 'src/common/exceptions/resource-already-exists.exception';
-import { ResourceNotFoundException } from 'src/common/exceptions/resource-not-found.exception';
 import { Repository } from 'typeorm';
+import { ResourceAlreadyExistsException } from '../../../common/exceptions/resource-already-exists.exception';
+import { ResourceNotFoundException } from '../../../common/exceptions/resource-not-found.exception';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserProfileResponse } from '../dto/user-profile.response';
