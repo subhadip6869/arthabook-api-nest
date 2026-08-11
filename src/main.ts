@@ -38,6 +38,7 @@ if (!process.env.VERCEL) {
 let cachedApp: any;
 
 export default async function handler(req: any, res: any) {
+  require('pg');
   // Cache the app instance so it doesn't reboot on every single request
   if (!cachedApp) {
     const app = await NestFactory.create(AppModule);
