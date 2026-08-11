@@ -6,12 +6,23 @@ import { DatabaseModule } from './core/database/database.module';
 import { FirebaseModule } from './core/firebase/firebase/firebase.module';
 import { ProfileModule } from './modules/profile/profile.module';
 
+const envFileMap: Record<string, string> = {
+  dev: '.env.dev',
+  alpha: '.env.alpha',
+  prod: '.env.prod',
+};
+
+const environment = process.env.APP_ENV || 'deploy';
+
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env.dev' }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: envFileMap[environment] || undefined,
+    }),
+    FirebaseModule,
     DatabaseModule,
     ProfileModule,
-    FirebaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
