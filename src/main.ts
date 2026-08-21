@@ -7,6 +7,14 @@ import { GlobalExceptionFilter } from './common/exceptions/global-exception.filt
 // Helper function to apply your global configurations
 // ---------------------------------------------------
 async function configureApp(app: any) {
+  app.enableCors({
+    origin: [
+      'http://localhost:5173',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  });
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalPipes(
     new ValidationPipe({
