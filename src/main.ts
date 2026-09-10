@@ -9,7 +9,7 @@ import { GlobalExceptionFilter } from './common/exceptions/global-exception.filt
 async function configureApp(app: any) {
   app.enableCors({
     origin: [
-      'https://arthabook-api-nest.vercel.app/',
+      'https://arthabook.netlify.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
