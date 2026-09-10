@@ -1,4 +1,5 @@
 import { User, UserGender, UserStatus } from '../entities/user.entity';
+import { FinancialProfileResponseDto } from './financial-profile-response.dto';
 
 export class UserProfileResponse {
   userId: string;
@@ -13,8 +14,12 @@ export class UserProfileResponse {
   onboardingCompleted: boolean;
   createdAt: Date;
   updatedAt: Date;
+  financialProfile: FinancialProfileResponseDto | null;
 
-  constructor(user: User) {
+  constructor(
+    user: User,
+    financialProfile: FinancialProfileResponseDto | null,
+  ) {
     this.userId = user.userId;
     this.email = user.email;
     this.isdCode = user.isdCode;
@@ -27,5 +32,6 @@ export class UserProfileResponse {
     this.onboardingCompleted = user.onboardingCompleted;
     this.createdAt = user.createdAt;
     this.updatedAt = user.updatedAt;
+    this.financialProfile = financialProfile;
   }
 }

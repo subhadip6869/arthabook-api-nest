@@ -16,7 +16,7 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserProfileResponse } from '../dto/user-profile.response';
 import { UserService } from '../services/user.service';
 
-@Controller('users')
+@Controller({ path: 'profile/users', version: '1' })
 @UseGuards(FirebaseAuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}

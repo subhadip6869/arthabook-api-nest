@@ -2,11 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryColumn,
   Unique,
   UpdateDateColumn,
   VersionColumn,
 } from 'typeorm';
+import { FinancialProfile } from './financial_profile.entity';
 
 export enum UserGender {
   MALE = 'MALE',
@@ -99,6 +101,9 @@ export class User {
     default: false,
   })
   onboardingCompleted!: boolean;
+
+  @OneToOne(() => FinancialProfile, (financialProfile) => financialProfile.user)
+  financialProfile!: FinancialProfile;
 
   @CreateDateColumn({
     name: 'created_at',

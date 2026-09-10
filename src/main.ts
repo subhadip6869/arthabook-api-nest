@@ -1,4 +1,8 @@
-import { ValidationPipe } from '@nestjs/common';
+import {
+  INestApplication,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { GlobalExceptionFilter } from './common/exceptions/global-exception.filter';
@@ -6,11 +10,9 @@ import { GlobalExceptionFilter } from './common/exceptions/global-exception.filt
 // ---------------------------------------------------
 // Helper function to apply your global configurations
 // ---------------------------------------------------
-async function configureApp(app: any) {
+function configureApp(app: INestApplication): INestApplication {
   app.enableCors({
-    origin: [
-      'https://arthabook.netlify.app',
-    ],
+    origin: ['https://arthabook.netlify.app'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -23,6 +25,8 @@ async function configureApp(app: any) {
       transform: true,
     }),
   );
+  app.setGlobalPrefix('api');
+  app.enableVersioning({ type: VersioningType.URI });
   return app;
 }
 
@@ -34,28 +38,28 @@ async function configureApp(app: any) {
 if (!process.env.VERCEL) {
   async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-    await configureApp(app);
+    configureApp(app);
     await app.listen(process.env.PORT ?? 8080);
   }
-  bootstrap();
+  void bootstrap();
 }
 
 // ---------------------------------------------------
 // 2. Vercel Serverless Setup
 // ---------------------------------------------------
-let cachedApp: any;
+let cachedApp: INestApplication | undefined;
 
 export default async function handler(req: any, res: any) {
   require('pg');
   // Cache the app instance so it doesn't reboot on every single request
   if (!cachedApp) {
     const app = await NestFactory.create(AppModule);
-    await configureApp(app);
+    configureApp(app);
     await app.init(); // Initialize without binding to a port
     cachedApp = app;
   }
 
   // Pass the request to the underlying Express instance
   const instance = cachedApp.getHttpAdapter().getInstance();
-  return instance(req, res);
+  instance(req, res);
 }
